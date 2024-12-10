@@ -105,6 +105,20 @@
           }
         }
       },
+      "GestionGastosShared/1.0.0": {
+        "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
+          "Blazored.Toast": "4.2.1",
+          "CurrieTechnologies.Razor.SweetAlert2": "5.6.0",
+          "EPPlus": "7.5.2"
+        },
+        "runtime": {
+          "lib/net8.0/GestionGastosShared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Humanizer/2.14.1": {
         "dependencies": {
           "Humanizer.Core.af": "2.14.1",
@@ -2038,17 +2052,6 @@
             "fileVersion": "7.0.22.51805"
           }
         }
-      },
-      "GestionGastosShared/1.0.0": {
-        "dependencies": {
-          "Blazored.LocalStorage": "4.5.0",
-          "Blazored.Toast": "4.2.1",
-          "CurrieTechnologies.Razor.SweetAlert2": "5.6.0",
-          "EPPlus": "7.5.2"
-        },
-        "runtime": {
-          "GestionGastosShared.dll": {}
-        }
       }
     }
   },
@@ -2106,6 +2109,13 @@
       "sha512": "sha512-cgwstM12foFisisURUyxwJOWHMD/rZxPSyBXFsCOFayaKq0oKlOs1mCTueKNNIlpPDG1no9vcaQiJgZXFM4KPA==",
       "path": "epplus.system.drawing/7.5.0",
       "hashPath": "epplus.system.drawing.7.5.0.nupkg.sha512"
+    },
+    "GestionGastosShared/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i3uV61PkyyLgwmherXzruqjovNbHsweeCQ4UGFd3s1dvkMLFT6THyelqKXjKvgEjPoaOqVUuR6gFxYevfYFd2g==",
+      "path": "gestiongastosshared/1.0.0",
+      "hashPath": "gestiongastosshared.1.0.0.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",
@@ -3289,11 +3299,6 @@
       "sha512": "sha512-bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "path": "system.windows.extensions/7.0.0",
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
-    },
-    "GestionGastosShared/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

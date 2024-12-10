@@ -229,7 +229,6 @@ C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\bin\Debug\net8.0\zh-Ha
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
-C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\bin\Debug\net8.0\GestionGastosShared.pdb
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\obj\Debug\net8.0\GestionGastos.csproj.AssemblyReference.cache
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\obj\Debug\net8.0\GestionGastos.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\fabia\source\repos\Gestion_gastos\Gestion_gastos\obj\Debug\net8.0\GestionGastos.AssemblyInfoInputs.cache
