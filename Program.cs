@@ -66,7 +66,7 @@ public class Program
                               builder =>
                               {
                                   builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
-                                  //builder.WithOrigins("http://0.0.0.0")
+                                  //builder.WithOrigins("http://localhost:5063")
                                          .AllowAnyHeader()
                                          .AllowAnyMethod();
                               });
