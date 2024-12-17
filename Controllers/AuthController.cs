@@ -27,17 +27,17 @@ namespace GestionGastos.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel loginModel)
         {
-            // Validación de usuario (simulación)
-            var user = _context.Usuarios.FirstOrDefault(u => u.Email == loginModel.Email);
+            // Validación de usuario
+            var user = _context.Usuarios.FirstOrDefault(u => u.Email.ToLower() == loginModel.Email.ToLower());
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginModel.Password, user.PasswordHash))
             {
                 return Unauthorized("Credenciales inválidas");
             }
-
-            // Generar token JWT
+            // Generar el token JWT
             var token = GenerateJwtToken(user);
 
-            return Ok(new { token });
+            return Ok(new { message = "Inicio de sesión correcto", token });
+            //return Ok(token);
         }
 
         // POST: api/Auth/Register
@@ -45,6 +45,12 @@ namespace GestionGastos.Controllers
         public IActionResult Register([FromBody] RegisterModel registerModel)
         {
             // Validación si el usuario ya existe
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (_context.Usuarios.Any(u => u.Email == registerModel.Email))
             {
                 return BadRequest("El usuario ya existe.");
@@ -62,7 +68,9 @@ namespace GestionGastos.Controllers
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
 
-            return Ok("Usuario registrado exitosamente.");
+            // Generar token JWT
+            var token = GenerateJwtToken(usuario);
+            return Ok(new { message = "Usuario registrado exitosamente", token });
         }
 
         // Método privado para generar el JWT token
@@ -88,6 +96,16 @@ namespace GestionGastos.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
+        [Authorize]
+        [HttpGet("validate")]
+        public IActionResult ValidateToken()
+        {
+            return Ok("Token válido");
+        }
+
+
     }
 }
 

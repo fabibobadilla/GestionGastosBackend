@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GestionGastos.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GastosController : ControllerBase
@@ -21,6 +22,7 @@ namespace GestionGastos.Controllers
         {
             _context = context;
         }
+
 
         // GET: api/Gasto
         [HttpGet]

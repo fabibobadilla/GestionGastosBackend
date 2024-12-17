@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using GestionGastos.DataContext;
 using GestionGastos.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace GestionGastos.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriasController : ControllerBase
@@ -70,24 +71,8 @@ namespace GestionGastos.Controllers
             return NoContent();
         }
 
+
         // POST: api/Categorias
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<IActionResult> AgregarCategoria([FromBody] Categoria categoria)
-        //{
-        //    if (categoria == null || string.IsNullOrWhiteSpace(categoria.Nombre) || categoria.UsuarioId <= 0)
-        //    {
-        //        return BadRequest("El modelo de categoría no es válido.");
-        //    }
-
-        //    // Lógica para guardar la categoría
-        //    await _context.Categorias.AddAsync(categoria);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(categoria);
-        //}
-
-
         [HttpPost]
         public async Task<ActionResult<string>> PostCategoria(Categoria categoria)
         {

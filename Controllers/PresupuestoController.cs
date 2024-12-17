@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GestionGastos.Controllers
 {
-    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PresupuestoController : ControllerBase

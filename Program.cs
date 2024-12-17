@@ -1,8 +1,11 @@
 using GestionGastos.DataContext;
 using GestionGastosShared.Services;
 using GestionGastosShared.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 public class Program
@@ -17,7 +20,6 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
-
         builder.Services.AddHttpClient();
 
         // Configuración de DbContext
@@ -29,22 +31,27 @@ public class Program
                 errorNumbersToAdd: null)
             ));
 
-
-        //builder.Services.AddScoped(sp =>
-        //{
-        //    var handler = new HttpClientHandler
-        //    {
-        //        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        //    };
-        //    return new HttpClient(handler) { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
-        //});
-
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            var jwtSettings = builder.Configuration.GetSection("Jwt");
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings["Issuer"],
+                ValidAudience = jwtSettings["Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+            };
+        });
 
 
         builder.Services.AddScoped<IGastosService, GastosService>();
         builder.Services.AddScoped<ICategoriasService, CategoriasService>();
         builder.Services.AddScoped<IUsuariosService, UsuariosService>();
-
+        builder.Services.AddScoped<IAuthService, AuthService>();
 
         // Agregar Swagger para la documentación de la API
         builder.Services.AddEndpointsApiExplorer();
@@ -55,14 +62,35 @@ public class Program
 
         builder.Services.AddCors(options =>
         {
+            //options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                  builder =>
+            //                  {
+            //                      //builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
+            //                      builder.WithOrigins("http://0.0.0.0")
+            //                             .AllowAnyHeader()
+            //                             .AllowAnyMethod();
+            //                  });
+            //options.AddPolicy(name: MyAllowSpecificOrigins,
+            //    builder =>
+            //        {
+            //            builder.WithOrigins("http://localhost", "https://localhost", "http://192.168.x.x")
+            //               .AllowAnyHeader()
+            //               .AllowAnyMethod();
+            //        });
+
+            //Para Desarrollo
             options.AddPolicy(name: MyAllowSpecificOrigins,
-                              builder =>
-                              {
-                                  builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
-                                         .AllowAnyHeader()
-                                         .AllowAnyMethod();
-                              });
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+                });
         });
+
+
+
+
 
         var app = builder.Build();
 
@@ -78,9 +106,9 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        // No es necesario usar autenticación ni autorización
-        // app.UseAuthentication(); 
-        // app.UseAuthorization();
+        //No es necesario usar autenticación ni autorización
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.MapControllers();
 
