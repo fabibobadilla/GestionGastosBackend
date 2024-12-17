@@ -62,14 +62,14 @@ public class Program
 
         builder.Services.AddCors(options =>
         {
-            //options.AddPolicy(name: MyAllowSpecificOrigins,
-            //                  builder =>
-            //                  {
-            //                      //builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
-            //                      builder.WithOrigins("http://0.0.0.0")
-            //                             .AllowAnyHeader()
-            //                             .AllowAnyMethod();
-            //                  });
+            options.AddPolicy(name: MyAllowSpecificOrigins,
+                              builder =>
+                              {
+                                  builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
+                                  //builder.WithOrigins("http://0.0.0.0")
+                                         .AllowAnyHeader()
+                                         .AllowAnyMethod();
+                              });
             //options.AddPolicy(name: MyAllowSpecificOrigins,
             //    builder =>
             //        {
@@ -79,13 +79,13 @@ public class Program
             //        });
 
             //Para Desarrollo
-            options.AddPolicy(name: MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
-                });
+            //options.AddPolicy(name: MyAllowSpecificOrigins,
+            //    builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //           .AllowAnyHeader()
+            //           .AllowAnyMethod();
+            //    });
         });
 
 
