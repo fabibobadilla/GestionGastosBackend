@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionGastos.Migrations
 {
     [DbContext(typeof(GestionGastosContext))]
-    [Migration("20241207032020_actualizacion-modelo-Gasto")]
-    partial class actualizacionmodeloGasto
+    [Migration("20250116015413_db-actualizada")]
+    partial class dbactualizada
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace GestionGastos.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("UsuarioId")
@@ -61,14 +60,16 @@ namespace GestionGastos.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("FechaGasto")
+                    b.Property<DateTime?>("FechaCarga")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Monto")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<string>("Tipo")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -178,14 +179,13 @@ namespace GestionGastos.Migrations
                     b.HasOne("GestionGastos.Models.Categoria", "Categoria")
                         .WithMany("Gastos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("GestionGastos.Models.Usuario", "Usuario")
                         .WithMany("Gastos")
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Categoria");
 

@@ -31,7 +31,6 @@ namespace GestionGastos.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("UsuarioId")
@@ -62,11 +61,9 @@ namespace GestionGastos.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Monto")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Tipo")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int?>("UsuarioId")
