@@ -143,8 +143,8 @@ public class Program
             options.AddPolicy(MyAllowSpecificOrigins,
                 policy =>
                 {
-                    //policy.WithOrigins("https://ggw.azurewebsites.net") // Origen permitido
-                    policy.WithOrigins("https://localhost:7076") // Origen permitido
+                    policy.WithOrigins("https://ggw.azurewebsites.net") // Origen permitido
+                    //policy.WithOrigins("https://localhost:7076") // Origen permitido
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
