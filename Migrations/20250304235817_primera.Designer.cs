@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionGastos.Migrations
 {
     [DbContext(typeof(GestionGastosContext))]
-    [Migration("20250116015413_db-actualizada")]
-    partial class dbactualizada
+    [Migration("20250304235817_primera")]
+    partial class primera
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
