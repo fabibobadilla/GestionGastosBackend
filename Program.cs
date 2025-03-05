@@ -143,11 +143,13 @@ public class Program
             options.AddPolicy(MyAllowSpecificOrigins,
                 policy =>
                 {
-                    policy.WithOrigins("https://ggw.azurewebsites.net") // ⚠️ Sin la barra al final
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                    // Permite cualquier origen (no recomendado para producción)
+                    policy.AllowAnyOrigin()  // Permite cualquier origen
+                          .AllowAnyHeader()  // Permite cualquier encabezado
+                          .AllowAnyMethod();  // Permite cualquier método
                 });
         });
+
 
 
 
