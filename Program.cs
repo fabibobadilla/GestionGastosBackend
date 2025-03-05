@@ -113,7 +113,7 @@ public class Program
             options.AddPolicy(name: MyAllowSpecificOrigins,
                               builder =>
                               {
-                                  builder.WithOrigins("https://ggw.azurewebsites.net") // Cambia por el puerto de tu frontend
+                                  builder.WithOrigins("https://ggw.azurewebsites.net/") // Cambia por el puerto de tu frontend
                                   //builder.WithOrigins("https://localhost:7076/")
                                          .AllowAnyHeader()
                                          .AllowAnyMethod();
