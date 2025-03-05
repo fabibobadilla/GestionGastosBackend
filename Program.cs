@@ -1,4 +1,4 @@
-using Blazored.LocalStorage;
+锘縰sing Blazored.LocalStorage;
 using GestionGastos.DataContext;
 using GestionGastosShared.Services;
 using GestionGastosShared.Services.Interfaces;
@@ -17,7 +17,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Obtiene la configuraci髇 directamente desde el builder
+        // Obtiene la configuraci贸n directamente desde el builder
         var configuration = builder.Configuration;
         string cadenaConexion = configuration.GetConnectionString("mysqlremoto");
 
@@ -25,7 +25,7 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddHttpClient();
 
-        // Configuraci髇 de DbContext
+        // Configuraci贸n de DbContext
         builder.Services.AddDbContext<GestionGastosContext>(options =>
             options.UseMySql(cadenaConexion, ServerVersion.AutoDetect(cadenaConexion),
             options => options.EnableRetryOnFailure(
@@ -58,11 +58,11 @@ public class Program
         //builder.Services.AddScoped<TokenService>();
 
 
-        // Agregar Swagger para la documentaci髇 de la API
+        // Agregar Swagger para la documentaci贸n de la API
         builder.Services.AddEndpointsApiExplorer();
         //builder.Services.AddSwaggerGen();
 
-        // Configurar autenticaci髇 JWT
+        // Configurar autenticaci贸n JWT
         //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         //    .AddJwtBearer(options =>
         //    {
@@ -77,7 +77,7 @@ public class Program
         //        };
         //    });
 
-        // Agregar Swagger con soporte para autenticaci髇 JWT
+        // Agregar Swagger con soporte para autenticaci贸n JWT
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mi API", Version = "v1" });
@@ -106,33 +106,46 @@ public class Program
         });
 
 
+        //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+        //builder.Services.AddCors(options =>
+        //{
+        //    options.AddPolicy(name: MyAllowSpecificOrigins,
+        //                      builder =>
+        //                      {
+        //                          builder.WithOrigins("https://ggw.azurewebsites.net/") // Cambia por el puerto de tu frontend
+        //                          //builder.WithOrigins("https://localhost:7076/")
+        //                                 .AllowAnyHeader()
+        //                                 .AllowAnyMethod();
+        //                      });
+        //    //options.AddPolicy(name: MyAllowSpecificOrigins,
+        //    //    builder =>
+        //    //        {
+        //    //            builder.WithOrigins("http://localhost", "https://localhost", "http://192.168.x.x")
+        //    //               .AllowAnyHeader()
+        //    //               .AllowAnyMethod();
+        //    //        });
+
+        //    //Para Desarrollo
+        //    options.AddPolicy(name: MyAllowSpecificOrigins,
+        //        builder =>
+        //        {
+        //            builder.AllowAnyOrigin()
+        //               .AllowAnyHeader()
+        //               .AllowAnyMethod();
+        //        });
+        //});
+
         var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy(name: MyAllowSpecificOrigins,
-                              builder =>
-                              {
-                                  builder.WithOrigins("https://ggw.azurewebsites.net/") // Cambia por el puerto de tu frontend
-                                  //builder.WithOrigins("https://localhost:7076/")
-                                         .AllowAnyHeader()
-                                         .AllowAnyMethod();
-                              });
-            //options.AddPolicy(name: MyAllowSpecificOrigins,
-            //    builder =>
-            //        {
-            //            builder.WithOrigins("http://localhost", "https://localhost", "http://192.168.x.x")
-            //               .AllowAnyHeader()
-            //               .AllowAnyMethod();
-            //        });
-
-            //Para Desarrollo
-            options.AddPolicy(name: MyAllowSpecificOrigins,
-                builder =>
+            options.AddPolicy(MyAllowSpecificOrigins,
+                policy =>
                 {
-                    builder.AllowAnyOrigin()
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
+                    policy.WithOrigins("https://ggw.azurewebsites.net") // 鈿狅笍 Sin la barra al final
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
                 });
         });
 
@@ -140,9 +153,9 @@ public class Program
 
 
 
+
         var app = builder.Build();
 
-        app.UseCors(MyAllowSpecificOrigins);
 
 
         // Configure the HTTP request pipeline.
@@ -152,9 +165,10 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors(MyAllowSpecificOrigins);
         app.UseHttpsRedirection();
 
-        //No es necesario usar autenticaci髇 ni autorizaci髇
+        //No es necesario usar autenticaci贸n ni autorizaci贸n
         app.UseAuthentication();
         app.UseAuthorization();
 
